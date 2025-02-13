@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/@jaames/iro@5"></script>
+</head>
+<body>
+    <div  class="guessedColor"></div>
+    <button class="submit">Submit</button>
+    <h1 class="randColorText"></h1>
+    <h2 class="yourGuess">You guessed: </h2>
+    <p class="tries">You have 5 tries to make your best guess!</p>
+    <p class="result"></p>
+    <p class="points"></p>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chroma-js/2.4.2/chroma.min.js"></script>
+    <script>
+        let tries = 5;
+        var colorPicker = new iro.ColorPicker('.guessedColor');
+        let randomColor = '#' + Math.floor(Math.random()*16777215).toString(16);
+        
+        let randColorText = document.querySelector(".randColorText").innerHTML = randomColor;
+        let submit = document.querySelector(".submit").addEventListener("click", convertColor);
+
+        function convertColor() {
+            if (tries > 0) {
+            let guessedColor = colorPicker.color.hexString;
+            let guess = document.querySelector(".yourGuess").innerHTML = "You guessed:" + guessedColor;
+
+            let lab_randColor = chroma(randomColor).lab();
+            let lab_guessedColor = chroma(guessedColor).lab();
+
+            let deltaE = chroma.deltaE(randomColor, guessedColor);
+            document.querySelector(".result").innerHTML = "you were off by (delta e): " + Math.round(deltaE);
+            
+            tries--;
+
+            
+            document.querySelector(".tries").innerHTML = "You have " + tries + " tries left."; }
+            else {
+            document.body.style.backgroundColor = randomColor;
+            
+            }
+        }
+    </script>
+</body>
+</html>
