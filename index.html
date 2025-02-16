@@ -9,23 +9,30 @@
     <link href="https://fonts.cdnfonts.com/css/winkle" rel="stylesheet">
 </head>
 <body>
+    
+    <div class="yourColors">
+        <p>Your guesses: </p>
+    </div> 
     <div class="main-container">
     <p class="points">000</p>
     <p class="deltae"></p>
-    <div class="guessedColor"></div>
+    <div class="colorPicker"></div> 
     <button class="submit">Submit</button>
     <h1 class="randColorText"></h1>
-    <h2 class="yourGuess">You guessed: </h2>
     <p class="tries">You have 5 tries to make your best guess!</p>
     <p class="result"></p>
-    </div>
+    </div>   
     <script src="https://cdnjs.cloudflare.com/ajax/libs/chroma-js/2.4.2/chroma.min.js"></script>
     <script>
         var points = 0;
         let bestTry = 100;
         let tries = 5;
-        var colorPicker = new iro.ColorPicker('.guessedColor');
-        let randomColor = '#' + Math.floor(Math.random()*16777215).toString(16);
+
+        var colorPicker = new iro.ColorPicker('.colorPicker', { 
+            colors: ["#FFFFFF"],
+            wheelLightness: false
+        }); // create color picker
+        let randomColor = '#' + Math.floor(Math.random()*16777215).toString(16); // random hex color
         
         let randColorText = document.querySelector(".randColorText").innerHTML = randomColor;
         let submit = document.querySelector(".submit").addEventListener("click", convertColor);
@@ -33,10 +40,17 @@
         function convertColor() {
             if (tries > 0) {
             let guessedColor = colorPicker.color.hexString;
-            let guess = document.querySelector(".yourGuess").innerHTML = "You guessed:" + guessedColor;
+                
+            var iconColor = document.querySelector(".yourColors").appendChild(document.createElement("div")); // create containers for guessed colors
+            iconColor.style.backgroundColor = guessedColor;
+            iconColor.style.width = "30px";
+            iconColor.style.height = "30px";
+            iconColor.style.border = "3px solid white";
+
+            document.querySelector(".yourColors").appendChild(document.createTextNode(guessedColor))
 
             let lab_randColor = chroma(randomColor).lab();
-            let lab_guessedColor = chroma(guessedColor).lab();
+            let lab_guessedColor = chroma(guessedColor).lab(); // convert to lab
 
             let deltaE = Math.round(chroma.deltaE(randomColor, guessedColor));
             bestTry = Math.min(deltaE, bestTry);
@@ -45,12 +59,21 @@
             document.querySelector(".tries").innerHTML = "You have " + tries + " tries left."; 
             
             document.querySelector(".result").innerHTML = "you were off by (delta e): " + deltaE;
-            points += tries * (100 - deltaE);
+            points += tries * (100 - deltaE); // calculate points
             document.querySelector(".points").innerHTML = points;
             document.querySelector(".deltae").innerHTML = "Your best try: " + bestTry;
+
             }
-            else {
-            document.body.style.backgroundColor = randomColor;
+            if (tries==0) {
+                console.log("the end");
+                var iconColor = document.querySelector(".yourColors").appendChild(document.createElement("div"));
+                iconColor.style.backgroundColor = randomColor;
+                iconColor.style.width = "80px";
+                iconColor.style.height = "80px";
+                iconColor.style.border = "3px solid white";
+                document.querySelector(".submit").style.visibility = "collapse";
+                document.querySelector(".tries").style.visibility = "collapse";
+                document.querySelector(".result").style.visibility = "collapse";
             }
         }
     </script>

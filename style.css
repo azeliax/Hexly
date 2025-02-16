@@ -4,7 +4,8 @@
     color: white;
     font-family: 'Winkle', sans-serif;
     letter-spacing: 2px;
-    font-size: 20px;
+    font-size: 30px;
+    font-weight: normal;
 }
 
 body {
@@ -18,11 +19,19 @@ body {
 }
 
 .main-container {
-    display: grid;
     place-items: center;
     margin: auto;
     justify-content: center;
     text-align: center;
+}
+
+.yourColors {
+    position: fixed;
+    background-color: #b98dca;
+    height: 100vh;
+    right: 0;
+    top: 0;
+    padding: 20px;
 }
 
 .submit {
@@ -33,3 +42,4 @@ body {
     padding: 5px;
     margin-top: 10px;
 }
+  
