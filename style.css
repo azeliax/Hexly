@@ -6,6 +6,7 @@
     letter-spacing: 2px;
     font-size: 30px;
     font-weight: normal;
+    user-select: none;
 }
 
 body {
@@ -34,12 +35,22 @@ body {
     padding: 20px;
 }
 
-.submit {
+.newGame {
+    visibility: collapse;
+}
+
+.submit, .newGame {
     font-size: 25px;
     background-color: #c9a2d8;
     border: 3px solid #c9a2d8;;
     border-radius: 10px;;
     padding: 5px;
     margin-top: 10px;
+}
+
+.iconStyle {
+    width: 30px;
+    height: 30px;
+    border: 3px solid white;
 }
   
