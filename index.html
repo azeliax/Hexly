@@ -9,7 +9,7 @@
     <link href="https://fonts.cdnfonts.com/css/winkle" rel="stylesheet">
 </head>
 <body>
-    
+    <section class="everything">
     <div class="yourColors">
         <p>Your guesses: </p>
     </div> 
@@ -23,6 +23,7 @@
     <p class="result"></p>
     <button class="newGame" onclick="resetGame()">Start again? </button> 
     </div>   
+    </section>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/chroma-js/2.4.2/chroma.min.js"></script>
     <script>
         var colorPicker = new iro.ColorPicker('.colorPicker', { 
@@ -78,6 +79,7 @@
             let guessedColor = colorPicker.color.hexString;
 
             document.querySelector(".yourColors").appendChild(document.createTextNode(guessedColor))
+            document.querySelector(".yourColors").innerHTML += "<br><br>";
 
             let lab_randColor = chroma(randomColor).lab();
             let lab_guessedColor = chroma(guessedColor).lab(); // convert to lab
