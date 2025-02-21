@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A game where you have to guess the color based on hex code!">
+    <meta name="author" content="Natalia Wietecha">
     <title>Hexly</title>
     <script src="https://cdn.jsdelivr.net/npm/@jaames/iro@5"></script>
     <link rel="stylesheet" href="style.css">
@@ -14,13 +16,12 @@
         <p>Your guesses: </p>
     </div> 
     <div class="main-container">
-    <p class="points">000</p>
+    <p class="randColorText"></p>
     <p class="deltae"></p>
     <div class="colorPicker"></div>
     <button class="submit" onclick="convertColor()">Submit</button>
-    <h1 class="randColorText"></h1>
-    <p class="tries">You have 5 tries to make your best guess!</p>
     <p class="result"></p>
+    <p class="tries">You have 5 tries to make your best guess!</p>
     <button class="newGame" onclick="resetGame()">Start again? </button> 
     </div>   
     </section>
@@ -32,16 +33,14 @@
         }); // create color picker
 
         var tries;
-        var points;
         var randomColor;
         var bestTry;
 
         function resetGame() {
-            document.querySelector(".submit").style.visibility = "visible";
-            document.querySelector(".tries").style.visibility = "visible";
+            document.querySelector(".submit").style.display= "block";
+            document.querySelector(".tries").style.display = "block";
             document.querySelector(".newGame").style.visibility = "hidden";
 
-            document.querySelector(".points").innerHTML = "000";
             document.querySelector(".deltae").innerHTML = "";
             document.querySelector(".result").innerHTML = "";
             document.querySelector(".tries").innerHTML = "You have 5 tries to make your best guess!";
@@ -67,7 +66,11 @@
         tries = 5;
         bestTry = 100;
         
-        randomColor = '#' + Math.floor(Math.random()*16777215).toString(16); // random hex color
+        const randomHexColorCode = () => {
+            let n = (Math.random() * 0xfffff * 1000000).toString(16);
+            return '#' + n.slice(0, 6);
+        };
+        randomColor = randomHexColorCode(); // random hex color
         
         let randColorText = document.querySelector(".randColorText").innerHTML = randomColor;
 
@@ -78,7 +81,7 @@
             if (tries > 0) {
             let guessedColor = colorPicker.color.hexString;
 
-            document.querySelector(".yourColors").appendChild(document.createTextNode(guessedColor))
+            document.querySelector(".yourColors").appendChild(document.createTextNode("   " + guessedColor))
             document.querySelector(".yourColors").innerHTML += "<br><br>";
 
             let lab_randColor = chroma(randomColor).lab();
@@ -96,10 +99,8 @@
             }
 
 
-            document.querySelector(".result").innerHTML = "you were off by (delta e): " + deltaE;
-            points += tries * (100 - deltaE); // calculate points
-            document.querySelector(".points").innerHTML = points;
-            document.querySelector(".deltae").innerHTML = "Your best try: " + bestTry;
+            document.querySelector(".result").innerHTML = "you were off by (ΔE): " + deltaE + "%";
+            document.querySelector(".deltae").innerHTML = "Your best try: " + bestTry + "% off";
 
             }
             if (tries==0) {
@@ -109,12 +110,17 @@
                 iconColor.style.width = "80px";
                 iconColor.style.height = "80px";
                 iconColor.style.border = "3px solid white";
-                document.querySelector(".submit").style.visibility = "collapse";
-                document.querySelector(".tries").style.visibility = "collapse";
+                document.querySelector(".yourColors").appendChild(document.createTextNode("   " + randomColor))
+
+                document.querySelector(".submit").style.display = "none";
+                document.querySelector(".tries").style.display = "none";
             }
         }
 
     window.onload = startGame;
     </script>
+    <footer>
+        <p class="author">Made by: <a href="https://github.com/azeliax">azeliax</a> on github</p>
+    </footer>
 </body>
 </html>

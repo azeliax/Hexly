@@ -14,11 +14,6 @@ body {
     background-size:cover
 }
 
-.points {
-    font-size: 90px;
-    margin: 0px;
-}
-
 .everything {
     display: flex;
     width: 50%;
@@ -49,16 +44,20 @@ body {
     text-align: left;
 }
 
+.randColorText {
+    font-size: 50px;
+}
+
 .newGame {
     visibility: collapse;
 }
 
 .submit, .newGame {
     font-size: 25px;
-    background-color: #c9a2d8;
-    border: 3px solid #c9a2d8;;
+    background-color: #a566be;
+    border: 3px solid #a566be;
     border-radius: 10px;;
-    padding: 5px;
+    padding: 10px;
     margin-top: 10px;
 }
 
@@ -67,6 +66,11 @@ body {
     height: 30px;
     border: 3px solid white;
     display: inline-block;
+}
+
+.author, a {
+    font-size: 40px;
+    text-align: center;
 }
 
 @media screen and (max-width: 1100px) {
@@ -79,8 +83,10 @@ body {
         height: 95vh;
     }
     .yourColors {
-        height: fit-content;
-        width: 100%;
+        height: 80vh;
+        font-size: 25px;
     }
 
+
   }
+
