@@ -6,119 +6,34 @@
     <meta name="description" content="A game where you have to guess the color based on hex code!">
     <meta name="author" content="Natalia Wietecha">
     <title>Hexly</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
     <script src="https://cdn.jsdelivr.net/npm/@jaames/iro@5"></script>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.cdnfonts.com/css/winkle" rel="stylesheet">
+    
 </head>
 <body>
+    <div id="header">
+    <p id="header-text">Hexly</p>
+    <img src="kitty1.png" id="kitty1" width="100px" alt="kitty">
+    <img src="kitty2.png" id="kitty2" class="kitty" width="100px" alt="kitty">
+    </div>
     <section class="everything">
-    <div class="yourColors">
+    <div class="your-colors">
         <p>Your guesses: </p>
     </div> 
     <div class="main-container">
     <p class="randColorText"></p>
-    <p class="deltae"></p>
     <div class="colorPicker"></div>
     <button class="submit" onclick="convertColor()">Submit</button>
     <p class="result"></p>
     <p class="tries">You have 5 tries to make your best guess!</p>
+    <p class="deltae"></p>
     <button class="newGame" onclick="resetGame()">Start again? </button> 
     </div>   
     </section>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/chroma-js/2.4.2/chroma.min.js"></script>
-    <script>
-        var colorPicker = new iro.ColorPicker('.colorPicker', { 
-            colors: ["#FFFFFF"],
-            wheelLightness: false
-        }); // create color picker
-
-        var tries;
-        var randomColor;
-        var bestTry;
-
-        function resetGame() {
-            document.querySelector(".submit").style.display= "block";
-            document.querySelector(".tries").style.display = "block";
-            document.querySelector(".newGame").style.visibility = "hidden";
-
-            document.querySelector(".deltae").innerHTML = "";
-            document.querySelector(".result").innerHTML = "";
-            document.querySelector(".tries").innerHTML = "You have 5 tries to make your best guess!";
-            document.querySelector(".yourColors").innerHTML = "<p>Your guesses: </p>"; // clear EVERYTHING
-            startGame();
-        }
-
-    function createIcon() {
-        let iconColor = document.createElement("div"); // create containers for guessed colors
-            iconColor.classList.add("iconStyle");
-            document.querySelector(".yourColors").appendChild(iconColor);
-            lastIconColor = iconColor;
-
-        colorPicker.on('color:change', function(color) {
-            if (lastIconColor) {
-            lastIconColor.style.backgroundColor = color.hexString;
-            }
-        });
-    }
-
-    function startGame() {
-        points = 0;
-        tries = 5;
-        bestTry = 100;
-        
-        const randomHexColorCode = () => {
-            let n = (Math.random() * 0xfffff * 1000000).toString(16);
-            return '#' + n.slice(0, 6);
-        };
-        randomColor = randomHexColorCode(); // random hex color
-        
-        let randColorText = document.querySelector(".randColorText").innerHTML = randomColor;
-
-        createIcon();
-    }
-
-    function convertColor() {
-            if (tries > 0) {
-            let guessedColor = colorPicker.color.hexString;
-
-            document.querySelector(".yourColors").appendChild(document.createTextNode("   " + guessedColor))
-            document.querySelector(".yourColors").innerHTML += "<br><br>";
-
-            let lab_randColor = chroma(randomColor).lab();
-            let lab_guessedColor = chroma(guessedColor).lab(); // convert to lab
-
-            let deltaE = Math.round(chroma.deltaE(randomColor, guessedColor));
-            bestTry = Math.min(deltaE, bestTry);
-            
-            tries--;
-            document.querySelector(".tries").innerHTML = "You have " + tries + " tries left."; 
-        
-            if (tries > 0) 
-            {
-                createIcon();
-            }
-
-
-            document.querySelector(".result").innerHTML = "you were off by (ΔE): " + deltaE + "%";
-            document.querySelector(".deltae").innerHTML = "Your best try: " + bestTry + "% off";
-
-            }
-            if (tries==0) {
-                document.querySelector(".newGame").style.visibility = "visible";
-                var iconColor = document.querySelector(".yourColors").appendChild(document.createElement("div"));
-                iconColor.style.backgroundColor = randomColor;
-                iconColor.style.width = "80px";
-                iconColor.style.height = "80px";
-                iconColor.style.border = "3px solid white";
-                document.querySelector(".yourColors").appendChild(document.createTextNode("   " + randomColor))
-
-                document.querySelector(".submit").style.display = "none";
-                document.querySelector(".tries").style.display = "none";
-            }
-        }
-
-    window.onload = startGame;
-    </script>
+    <script src="index.js"></script>
     <footer>
         <p class="author">Made by: <a href="https://github.com/azeliax">azeliax</a> on github</p>
     </footer>

@@ -4,7 +4,7 @@
     color: white;
     font-family: 'Winkle', sans-serif;
     letter-spacing: 2px;
-    font-size: 30px;
+    font-size: 23px;
     font-weight: normal;
     user-select: none;
 }
@@ -21,6 +21,7 @@ body {
     margin: auto;
     justify-content: center;
     text-align: center;
+
 }
 
 .main-container {
@@ -28,14 +29,14 @@ body {
     border-radius: 10px;
     border: 2.5px solid rgb(155, 124, 161);
     width: fit-content;
-    height: 90vh;
+    height: 80vh;
     padding: 30px 100px 30px 100px;
     background-color: #b98dca7e;
 }
 
-.yourColors {
+.your-colors {
     background-color: #b98dca7e;
-    height: 90vh;
+    height: fit-content;
     width: fit-content;
     padding: 30px;
     border-radius: 10px;
@@ -46,6 +47,7 @@ body {
 
 .randColorText {
     font-size: 50px;
+    margin: 0;
 }
 
 .newGame {
@@ -69,24 +71,49 @@ body {
 }
 
 .author, a {
-    font-size: 40px;
+    font-size: 30px;
     text-align: center;
 }
 
-@media screen and (max-width: 1100px) {
+
+
+@media screen and (max-width: 1000px), screen and (max-height: 770px) {
     .everything {
         flex-wrap: wrap-reverse;
     }
     .main-container {
         margin-bottom: 10%;
         width: 90%;
-        height: 95vh;
+        height: fit-content
     }
-    .yourColors {
+    .your-colors {
         height: 80vh;
         font-size: 25px;
+        overflow: hidden;
     }
+  }
 
+  @media screen and (max-width: 700px) {
+    .your-colors {
+        font-size: 20px;
+    }
+  }
 
+  .kitty {
+    display: none;
+  }
+
+  #header-text {
+    font-size: 110px;
+    display: inline-flex;
+    vertical-align: top;
+    margin: 10px;
+    -webkit-text-stroke: 5px rgb(155, 124, 161);
+  }
+
+  #header {
+    margin: auto;
+    justify-content: center;
+    text-align: center;
   }
 
